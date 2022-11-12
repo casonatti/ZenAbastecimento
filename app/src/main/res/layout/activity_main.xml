@@ -7,48 +7,101 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Adicionar"
+        android:text="@string/btnAdicionar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="643dp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txtViewMediaTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Média Total"
-        tools:layout_editor_absoluteX="54dp"
-        tools:layout_editor_absoluteY="116dp" />
+        android:layout_marginTop="50dp"
+        android:text="@string/txtViewMediaTotal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/txtViewMediaTotalValor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Média Relativa"
-        tools:layout_editor_absoluteX="273dp"
-        tools:layout_editor_absoluteY="115dp" />
+        android:layout_marginTop="10dp"
+        android:text="@string/txtViewMediaTotalValor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewMediaTotal" />
+
+    <TextView
+        android:id="@+id/txtViewKm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:text="@string/txtViewKm"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="315dp" />
+
+    <TextView
+        android:id="@+id/txtViewMediaRelativa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/txtViewMediaRelativa"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewLitros" />
+
+    <TextView
+        android:id="@+id/txtViewLitros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/txtViewLitros"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewKm" />
 
     <EditText
-        android:id="@+id/editTextNumber2"
+        android:id="@+id/txtNumberKm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="100dp"
+        android:accessibilityLiveRegion="polite"
         android:ems="10"
+        android:hint="0"
         android:inputType="number"
-        android:text="km"
-        tools:layout_editor_absoluteX="14dp"
-        tools:layout_editor_absoluteY="246dp" />
+        android:singleLine="true"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="301dp" />
 
     <EditText
-        android:id="@+id/editTextNumberDecimal"
+        android:id="@+id/txtNumberLitros"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="100dp"
+        android:accessibilityLiveRegion="polite"
         android:ems="10"
-        android:inputType="numberDecimal"
-        android:text="Litros"
-        tools:layout_editor_absoluteX="185dp"
-        tools:layout_editor_absoluteY="246dp" />
+        android:hint="0"
+        android:inputType="number"
+        android:singleLine="true"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="346dp" />
+
+    <TextView
+        android:id="@+id/txtViewMediaRelativaValor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="124dp"
+        android:text="@string/txtViewMediaRelativaValor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtViewMediaRelativa"
+        tools:layout_editor_absoluteY="414dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

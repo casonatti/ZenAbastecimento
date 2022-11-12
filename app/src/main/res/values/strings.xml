@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ZenAbastecimento</string>
+    <string name="txtViewMediaTotal">Média Total</string>
+    <string name="txtViewMediaTotalValor">Valor Média Total</string>
+    <string name="txtViewKm">km</string>
+    <string name="txtViewMediaRelativa">Média Relativa</string>
+    <string name="txtViewMediaRelativaValor">Valor Média Relativa</string>
+    <string name="txtViewLitros">Litros</string>
+    <string name="btnAdicionar">Adicionar</string>
+
 </resources>
