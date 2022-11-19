@@ -11,9 +11,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
+import java.io.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,21 +25,43 @@ class MainActivity : AppCompatActivity() {
         var km: Double = 0.0;
         var litros: Double = 0.0;
         var result: Double = 0.0;
+        var numElementos : Int = 0;
 
-        val mediaTotalPath = "media_total.txt";
-        val mediaTotalFile = File(mediaTotalPath);
+        val filePath: String = "MyFileStorage";
+        var myExternalFile : File ?= null;
 
-        if(mediaTotalFile.length() > 0) {
-            val lines: List<String> = mediaTotalFile.readLines();
-            var subtotal: Double = 0.0;
-            lines.forEach() {
-                line-> subtotal += line.toDouble();
+        //calcula a media total atual
+        try {
+            val fileName : String = "media_total.txt";
+            myExternalFile = File(getExternalFilesDir(filePath), fileName);
+
+//            myExternalFile.delete();
+//            myExternalFile.createNewFile();
+
+            if(fileName.toString()!=null && fileName.toString().trim()!=""){
+                var fileInputStream = FileInputStream(myExternalFile)
+                var inputStreamReader: InputStreamReader = InputStreamReader(fileInputStream)
+                val bufferedReader: BufferedReader = BufferedReader(inputStreamReader)
+                val listaMediaTotal : MutableList<String> = mutableListOf();
+                var text: String? = null
+                var calc : Double = 0.0;
+                while ({ text = bufferedReader.readLine(); text }() != null) {
+                    listaMediaTotal.add(text.toString());
+                    numElementos++;
+                }
+                fileInputStream.close()
+                for(item in listaMediaTotal) {
+                    println(item);
+                    calc += item.toDouble();
+                }
+                if(numElementos == 0)
+                    valorMediaTotal.text = numElementos.toString();
+                else
+                    valorMediaTotal.text = (calc/numElementos).toString();
+                Toast.makeText(applicationContext, numElementos.toString(), Toast.LENGTH_SHORT).show();
             }
-
-            valorMediaTotal.text = (subtotal/lines.size).toString();
-
-        } else {
-            valorMediaTotal.text = "0";
+        } catch (e: IOException) {
+            e.printStackTrace();
         }
 
         valorKm.addTextChangedListener(object : TextWatcher {
@@ -54,7 +74,12 @@ class MainActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
-                km = valorKm.text.toString().toDouble();
+
+                var kmStr: String?;
+                kmStr = valorKm.text.toString()
+                if(kmStr.isNotEmpty()) {
+                    km = kmStr.toDouble();
+                }
             }
         })
 
@@ -81,7 +106,25 @@ class MainActivity : AppCompatActivity() {
         })
 
         btnAdd.setOnClickListener() {
-            //mediaTotalFile.writeText("Teste!");
+            myExternalFile = File(getExternalFilesDir(filePath), "media_total.txt");
+            try {
+                Toast.makeText(applicationContext,"Saving data...",Toast.LENGTH_SHORT).show();
+                val fileOutputStream = FileOutputStream(myExternalFile, true);
+//                fileOutputStream.write(valorMediaRelativa.text.toString().toByteArray());
+                fileOutputStream.bufferedWriter().use { out ->
+                    out.write(valorMediaRelativa.text.toString() + "\n");
+                }
+                fileOutputStream.close();
+
+                //atualiza o valor da media total
+                val mediaRelativaAtual : Double = valorMediaRelativa.text.toString().toDouble();
+                var mediaTotalAtual : Double = valorMediaTotal.text.toString().toDouble();
+                mediaTotalAtual *= numElementos;
+                numElementos++;
+                valorMediaTotal.text = ((mediaTotalAtual + mediaRelativaAtual)/numElementos).toString()
+            } catch(e: IOException) {
+                e.printStackTrace();
+            }
         }
     }
 }
